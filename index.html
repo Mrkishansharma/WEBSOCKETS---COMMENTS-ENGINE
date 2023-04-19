@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - comments - App</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <input type="text" placeholder="title" id="title">
+
+    <input type="text" placeholder="description" id="desc">
+
+    <button onclick="createBlog()"> Create Blog </button>
+
+    <hr />
+
+    <div id="blogContainer">
+
+    </div>
+
+
+    
+
+
+</body>
+
+</html>
+
+<script src="app.js"></script>

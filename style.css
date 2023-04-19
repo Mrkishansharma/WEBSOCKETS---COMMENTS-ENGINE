@@ -1,0 +1,33 @@
+.blogBox{
+    border: 1px solid black;
+    background-color: rgb(218, 237, 237);
+    margin: 5px;
+    padding: 5px 20px;
+}
+button, input{
+    font-size: 14px;
+    padding: 4px 12px;
+    margin-right: 20px;
+    border-radius: 8px;
+    margin: 10px 0px;
+}
+button{
+    background-color: black;
+    color: aqua;
+}
+button:hover{
+    background-color: transparent;
+    color: blue;
+    font-weight: bold;
+}
+.commentBox{
+    border: 1px solid Black;
+    background-color: rgb(199, 188, 208);
+    padding: 10px;
+}
+.replyBox{
+    border: 1px solid Blue;
+    padding: 5px 10px;
+    margin-top: 15px;
+    background-color: beige;
+}

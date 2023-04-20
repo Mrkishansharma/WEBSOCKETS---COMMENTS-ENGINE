@@ -72,6 +72,8 @@ io.on("connection", (socket) =>{
 
 
     socket.on('addReply', (replyObj)=>{
+
+        replyObj.id = uuidv4();
         console.log(replyObj);
 
         BlogDB.forEach((ele)=>{
@@ -85,6 +87,87 @@ io.on("connection", (socket) =>{
         })
 
         console.log(BlogDB);
+
+        io.emit('allBlogs', BlogDB);
+
+    })
+
+
+
+
+    socket.on("deleteReply", (obj)=>{
+
+        BlogDB.forEach((b)=>{
+
+            if(b.id === obj.bid ){
+
+                b.comments.forEach(c=>{
+
+                    if(c.id === obj.cid){
+
+                        c.replies.forEach((r, i)=>{
+
+                            if(r.id === obj.rid){
+
+                                c.replies.splice(i,1);
+
+                            }
+
+                        })
+
+                    }
+
+                })
+
+            } 
+
+        })
+
+        io.emit('allBlogs', BlogDB);
+
+    })
+
+
+    
+
+    socket.on("deleteComment", (obj)=>{
+
+        BlogDB.forEach((b)=>{
+
+            if(b.id === obj.bid ){
+
+                b.comments.forEach((c,i)=>{
+
+                    if(c.id === obj.cid){
+
+                        b.comments.splice(i,1);
+
+                    }
+
+                })
+
+            } 
+
+        })
+
+        io.emit('allBlogs', BlogDB);
+
+    })
+
+
+
+
+    socket.on("deleteBlog", (obj)=>{
+
+        BlogDB.forEach((b,i)=>{
+
+            if(b.id === obj.bid ){
+
+                BlogDB.splice(i,1)
+
+            } 
+
+        })
 
         io.emit('allBlogs', BlogDB);
 

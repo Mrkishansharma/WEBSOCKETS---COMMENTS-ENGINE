@@ -28,38 +28,42 @@ const socket = io("http://localhost:3000/", { transports: ["websocket"] });
 
     function displayBlogs(data){
 
-        const htmls = data.map((ele)=>{
+        const htmls = data.map((blog)=>{
 
             return `<div class="blogBox">
 
-                        <h3>Title:- ${ele.title}</h3>
+                        <h3>Title:- ${blog.title}</h3>
 
-                        <p>Description:- ${ele.desc}</p>
+                        <p>Description:- ${blog.desc}</p>
 
-                        <input type="text" id="${ele.id}" placeholder="comments...">
+                        <input type="text" id="${blog.id}" placeholder="comments...">
 
-                        <button onclick="addComment('${ele.id}')">Add Comment</button>
+                        <button onclick="addComment('${blog.id}')">Add Comment</button>
 
+                        <button onclick="deleteBlog('${blog.id}')">Delete Blog</button>
 
                         <div class="commentBox">Comments : - ${
 
-                            ele.comments.map((e)=>{
+                            blog.comments.map((c)=>{
 
                                 return `<div>
 
-                                        <p>${e.comment}</p>
+                                        <p>${c.comment}</p>
 
-                                        <input type="text" id="${e.id}" placeholder="Reply here...">
+                                        <input type="text" id="${c.id}" placeholder="Reply here...">
 
-                                        <button onclick="addReply('${e.id}', '${ele.id}')">Add Reply</button>
+                                        <button onclick="addReply('${c.id}', '${blog.id}')">Add Reply</button>
+
+                                        <button onclick="deleteComment('${c.id}', '${blog.id}')">Delete Comment</button> 
 
                                         <div class="replyBox">Reply : - ${
 
-                                            e.replies.map((r)=>{
+                                            c.replies.map((r)=>{
 
                                                 return `<div class="replyBox">
 
-                                                        <p>${r.reply}</p>   
+                                                        <p>${r.reply}</p>
+                                                        <button onclick="deleteReply('${r.id}', '${c.id}', '${blog.id}')">Delete Reply</button>   
                                                         
                                                     </div>`
 
@@ -104,6 +108,7 @@ const socket = io("http://localhost:3000/", { transports: ["websocket"] });
 
 
 
+
     function addReply(id, blogID){
 
         const reply = document.getElementById(id).value;
@@ -119,3 +124,38 @@ const socket = io("http://localhost:3000/", { transports: ["websocket"] });
 
         alert('success');
     }
+
+
+
+
+    function deleteReply(rid, cid, bid){
+
+        let obj = {rid, cid, bid}
+
+        socket.emit("deleteReply", obj)
+
+        alert('successfully deleted');
+    }
+
+
+    
+    function deleteComment(cid, bid){
+
+        let obj = { cid, bid }
+
+        socket.emit("deleteComment", obj)
+
+        alert('successfully deleted');
+    }
+
+
+
+    function deleteBlog(bid){
+
+        let obj = { bid }
+
+        socket.emit("deleteBlog", obj)
+
+        alert('successfully deleted');
+    }
+
